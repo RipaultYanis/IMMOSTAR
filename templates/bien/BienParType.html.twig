@@ -1,0 +1,22 @@
+{# empty Twig template #}
+
+{% block body %}
+{% for value in result %}
+<tr>
+<td> {{ result.id }} </td>
+<td> {{ result.nb_piece }} </td>
+<td> {{ result.nb_chambre }} </td>
+<td> {{ result.superficie }} </td>
+<td> {{ result.prix }} </td>
+<td> {{ result.chauffage }} </td>
+<td> {{ result.annee }} </td>
+<td> {{ result.localisation }} </td>
+<td> {{ result.etat }} </td>
+
+
+</tr>
+{% endfor %}
+ <a href="/accueil">
+            Accueil 
+            <br>
+{% endblock %}
