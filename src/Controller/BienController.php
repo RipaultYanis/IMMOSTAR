@@ -35,13 +35,13 @@ public function ajouterBien(Request $query){
     $form = $this->createForm(BienType::class, $bien);
     $form->handleRequest($query);
     if ($query->isMethod('POST')) {
-    if ($form->isValid()) {
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($bien);
-    $em->flush();
-    $query->getSession()->getFlashBag()->add('notice', 'Bien Crée.');
-    return $this->render('bien/Bien.html.twig',array('form'=>$form->createView()));
-    }
+      if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($bien);
+      $em->flush();
+      $query->getSession()->getFlashBag()->add('notice', 'Bien Crée.');
+      return $this->render('bien/Bien.html.twig',array('form'=>$form->createView()));
+      }
    }
     return $this->render('bien/Bien.html.twig',array('form'=>$form->createView()));
     
@@ -52,22 +52,21 @@ public function ajouterBien(Request $query){
 *
 */
 public function modifierBien(Request $request, $id){
-$bien = new Bien() ;
-$bien = $this->getDoctrine()->getManager()->getRepository(Bien::class)->getUnBien($id);
-$request->getSession()->getFlashBag()->add('notice', '');
-$form = $this->createForm(BienType::class, $bien);
-if($request->isMethod('POST')){
-$form->handleRequest($request);
-if($form->isValid()){
-$em = $this->getDoctrine()->getManager();
-$em->flush();
-$request->getSession()->getFlashBag()->add('success');
-
-return $this->redirectToRoute('modifierBien',array('id'=>$id));
-}
-}
-return $this->render( 'bien/ModifierBien.html.twig', array('form' =>$form->createView(), 'bien'=>$bien));
-}
+   $bien = new Bien() ;
+   $bien = $this->getDoctrine()->getManager()->getRepository(Bien::class)->getUnBien($id);
+   $request->getSession()->getFlashBag()->add('notice', '');
+   $form = $this->createForm(BienType::class, $bien);
+   if($request->isMethod('POST')){
+      $form->handleRequest($request);
+      if($form->isValid()){
+         $em = $this->getDoctrine()->getManager();
+         $em->flush();
+         $request->getSession()->getFlashBag()->add('success');
+         return $this->redirectToRoute('modifierBien',array('id'=>$id));
+      }
+   }
+   return $this->render( 'bien/ModifierBien.html.twig', array('form' =>$form->createView(), 'bien'=>$bien));
+   }
 
 /**
 *
@@ -83,7 +82,7 @@ public function getBienParType(Request $request,$type)
      }
      public function getBien(){
          $bien = new Bien() ;
-            $bien = $this->getDoctrine()->getManager()->getRepository(Bien::class)->fetchAll();
+         $bien = $this->getDoctrine()->getManager()->getRepository(Bien::class)->fetchAll();
          
      }
 }
