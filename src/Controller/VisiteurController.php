@@ -35,13 +35,13 @@ public function ajouterVisiteur(Request $query){
     $form = $this->createForm(VisiteurType::class, $visiteur);
     $form->handleRequest($query);
     if ($query->isMethod('POST')) {
-    if ($form->isValid()) {
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($visiteur);
-    $em->flush();
-    $query->getSession()->getFlashBag()->add('notice', 'Visiteur Crée.');
-    return $this->render('visiteur/Visiteur.html.twig',array('form'=>$form->createView()));
-    }
+      if ($form->isValid()) {
+         $em = $this->getDoctrine()->getManager();
+         $em->persist($visiteur);
+         $em->flush();
+         $query->getSession()->getFlashBag()->add('notice', 'Visiteur Crée.');
+         return $this->render('visiteur/Visiteur.html.twig',array('form'=>$form->createView()));
+      }
    }
     return $this->render('visiteur/Visiteur.html.twig',array('form'=>$form->createView()));
     
@@ -52,20 +52,19 @@ public function ajouterVisiteur(Request $query){
 *
 */
 public function modifierVisiteur(Request $request, $id){
-$visiteur = new Visiteur() ;
-$visiteur = $this->getDoctrine()->getManager()->getRepository(Visiteur::class)->getUnVisiteur($id);
-$request->getSession()->getFlashBag()->add('notice', '');
-$form = $this->createForm(VisiteurType::class, $visiteur);
-if($request->isMethod('POST')){
-$form->handleRequest($request);
-if($form->isValid()){
-$em = $this->getDoctrine()->getManager();
-$em->flush();
-$request->getSession()->getFlashBag()->add('success', 'Article modifié avec succès.');
-
-return $this->redirectToRoute('modifierVisiteur',array('id'=>$id));
-}
-}
-return $this->render( 'visiteur/ModifierVisiteur.html.twig', array('form' =>$form->createView(), 'visiteur'=>$visiteur));
-}
+   $visiteur = new Visiteur() ;
+   $visiteur = $this->getDoctrine()->getManager()->getRepository(Visiteur::class)->getUnVisiteur($id);
+   $request->getSession()->getFlashBag()->add('notice', '');
+   $form = $this->createForm(VisiteurType::class, $visiteur);
+   if($request->isMethod('POST')){
+      $form->handleRequest($request);
+      if($form->isValid()){
+         $em = $this->getDoctrine()->getManager();
+         $em->flush();
+         $request->getSession()->getFlashBag()->add('success', 'Article modifié avec succès.');
+         return $this->redirectToRoute('modifierVisiteur',array('id'=>$id));
+      }
+   }
+   return $this->render( 'visiteur/ModifierVisiteur.html.twig', array('form' =>$form->createView(), 'visiteur'=>$visiteur));
+   }
 }
