@@ -34,15 +34,15 @@ public function ajouterVisite(Request $query){
     $visite= new Visite();
     $form = $this->createForm(VisiteType::class, $visite);
     $form->handleRequest($query);
-    if ($query->isMethod('POST')) {
-    if ($form->isValid()) {
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($visite);
-    $em->flush();
-    $query->getSession()->getFlashBag()->add('notice', 'Visite Crée.');
-    return $this->render('visite/Visite.html.twig',array('form'=>$form->createView()));
+      if ($query->isMethod('POST')) {
+        if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($visite);
+        $em->flush();
+        $query->getSession()->getFlashBag()->add('notice', 'Visite Crée.');
+        return $this->render('visite/Visite.html.twig',array('form'=>$form->createView()));
+      }
     }
-   }
     return $this->render('visite/Visite.html.twig',array('form'=>$form->createView()));
     
 }
