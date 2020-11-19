@@ -35,12 +35,12 @@ public function ajouterTypes(Request $query){
     $form = $this->createForm(TypesType::class, $types);
     $form->handleRequest($query);
     if ($query->isMethod('POST')) {
-    if ($form->isValid()) {
-    $em = $this->getDoctrine()->getManager();
-    $em->persist($types);
-    $em->flush();
-    $query->getSession()->getFlashBag()->add('notice', 'Types Crée.');
-    return $this->render('types/Types.html.twig',array('form'=>$form->createView()));
+      if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($types);
+        $em->flush();
+        $query->getSession()->getFlashBag()->add('notice', 'Types Crée.');
+        return $this->render('types/Types.html.twig',array('form'=>$form->createView()));
     }
     
     
